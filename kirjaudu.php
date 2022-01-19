@@ -44,7 +44,8 @@ try {
             exit;
         }
         else {
-            header('Location: index.php', true, 301);
+            echo "virhe";
+            //header('Location: index.php', true, 301);
             exit;    
         }
     }

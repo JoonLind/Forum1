@@ -18,6 +18,7 @@
 
 if(isset($_SESSION["email_error"]))
 
+
 ?>
 
 <p><input type="password" name="password" placeholder="Salasana" required></p>
