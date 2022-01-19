@@ -20,7 +20,7 @@ function luoTietokantaYhteys() {
 }
 
 
-function muodostaAiheHaku($owner_id)
+function muodostaAiheHaku($subject_name)
 
 {
     return "SELECT * FROM subjects";
