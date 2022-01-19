@@ -15,6 +15,7 @@ if(isset($_SESSION))
     <link rel="stylesheet" href="app.css">
 </head>
 <body>
+<h2>Aiheet</h2>
 
 <h1>
 <?php
