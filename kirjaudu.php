@@ -11,7 +11,7 @@ $emailValid = filter_var($emailSanitized, FILTER_VALIDATE_EMAIL);
 If($emailValid === false)
 {
     // mahdollinen virheviesti
-    $_SESSION["email_error"] = "Sähköpostiosoite on väärässä muodossa."
+    $_SESSION["email_error"] = "Sähköpostiosoite on väärässä muodossa.";
     header('Location: index.php', true, 301);
     exit; 
 }
