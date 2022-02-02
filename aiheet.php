@@ -2,10 +2,15 @@
 // avataan yhteys tietokantaan
 session_start();
 
-// käytetään database-tiedostoa
 require("database.php");
 
-if(isset($_SESSION))
+/*if(isset($_SESSION["owner_id"]) === false)
+{
+    header('Location: index.php', true, 301);
+    exit;
+
+}
+*/
 ?>
 
 
@@ -15,32 +20,22 @@ if(isset($_SESSION))
     <link rel="stylesheet" href="app.css">
 </head>
 <body>
-<h2>Aiheet</h2>
-
-<h1>
+<h1>Foorumi</h1>
+<br><br><br>
+<h2>
 <?php
-    // Haetaan aiheet tietokannasta
+  
+    // Haetaan käyttäjän nimi
     try {
-        $conn = luoTietokantaYhteys();
-        $lause = muodostaAiheHaku($_SESSION["subject_name"]);
-        
-        
-        $stmt = $conn->prepare($lause);
-        
-        $stmt->execute();
-        $data = $stmt->fetchAll(); 
-
-        echo "Aiheet: " . $data[0]["name"] . "!";
-    }
+        echo "Tervetuloa, " . $_SESSION["owner_name"] . "!";
+        }
     catch(PDOException $e) {
         echo $e->getMessage();
     }
-?>
-</h1>
 
-<div>
-<a href="index.php">Kirjaudu ulos</a>
-</div>
+?>
+</h2>
+
 
 
 
@@ -50,28 +45,28 @@ if(isset($_SESSION))
     <table>
         <tr>
             <th>Aihe</th>
-            <th>Kirjoittaja</th>
+            <th> </th>
+            
         </tr>
 
         <?php
     try {
-        $conn = new PDO("mysql:host=mysql.cc.puv.fi;dbname=e2000667_2022_Forum",
-        "e2000667", "QpHJ8BNhSuXX");
+        $conn = luoTietokantaYhteys();
     
         // $lause = "SELECT * FROM pets WHERE owner_id=" . $_GET['id'] . " AND status='alive'";
-        $lause = muodostaAiheHaku($subject_name);
+        $lause = "SELECT * FROM subject";
         $stmt = $conn->prepare($lause);
         
         $stmt->execute();
         $data = $stmt->fetchAll(); 
 
 
-        //JATKA TÄSTÄ
+        
     
         foreach($data as $row) {
             echo "<tr>";
             echo "<td>" . $row["name"] . "</td>";
-            echo "<td><a href='lemmikki.php?id=" . $row["id"] . "'>";
+            echo "<td><a href='näytä_aihe.php?id=" . $row["id"] . "'>";
             echo "<img class='nayta' src='eye-solid.svg'>";
             echo "</a></td></tr>";
         }
@@ -79,5 +74,24 @@ if(isset($_SESSION))
     catch(PDOException $e) {
         echo $e->getMessage();
     }
-?>
+        ?>
     </table>
+
+
+<?php 
+/* Tähän kohti aiheen lisäys
+     echo '<p><a href="lisaa_aihe.php?ownerId=' . $_SESSION["owner_id"] . '">Lisää aihe</a></p>';
+    */
+?>
+
+<div>
+<br><br><br>
+<a href="logout.php">Kirjaudu ulos</a>
+</div>
+
+
+
+</div>
+
+</body>
+</html>

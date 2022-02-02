@@ -1,0 +1,53 @@
+h1, h2, div, p
+{
+    text-align: center;
+}
+
+body
+{
+
+    height: 100vh;
+    background-image: radial-gradient(circle at 35% 14%, hsla(150,0%,8%,0.07) 0%, hsla(150,0%,8%,0.07) 39%,transparent 39%, transparent 90%,transparent 90%, transparent 100%),radial-gradient(circle at 76% 4%, hsla(150,0%,8%,0.07) 0%, hsla(150,0%,8%,0.07) 83%,transparent 83%, transparent 89%,transparent 89%, transparent 100%),radial-gradient(circle at 20% 33%, hsla(150,0%,8%,0.07) 0%, hsla(150,0%,8%,0.07) 83%,transparent 83%, transparent 90%,transparent 90%, transparent 100%),radial-gradient(circle at 44% 74%, hsla(150,0%,8%,0.07) 0%, hsla(150,0%,8%,0.07) 73%,transparent 73%, transparent 89%,transparent 89%, transparent 100%),radial-gradient(circle at 26% 31%, hsla(150,0%,8%,0.07) 0%, hsla(150,0%,8%,0.07) 44%,transparent 44%, transparent 75%,transparent 75%, transparent 100%),linear-gradient(0deg, rgba(212,32,102, 0.31),rgba(238,52,93, 0.5));
+
+
+}
+
+
+table 
+{
+    margin: auto;
+    border-spacing: 0;
+    text-align:justify;
+}
+
+
+th 
+{
+    background-color:#ffccee;
+}
+
+td 
+{
+    min-width: 200px;
+    background-color: #00000008;
+}
+
+
+.nayta
+{
+max-width: 1rem;
+height: 1rem;
+}
+
+button
+{
+/* Bootstrap-kehyksestä kopioitu */
+color: #fff;
+background-color:#4d004d;
+border-color: #2e6da4;
+border-radius: 4px;
+border: 1px solid transparent;
+
+
+
+}

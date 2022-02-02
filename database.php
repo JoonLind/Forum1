@@ -2,27 +2,28 @@
 
 require_once("env.php");
 
-
-//avataan yhteys foorumin tietokantaan
 function luoTietokantaYhteys() {
-    global $DB_USERNAME;
-    try{
+    // viittaus env.php:ssa mainittuihin muuttujiin
+    global $DB_USERNAME, $DB_PASSWORD;
+    try {
         $conn = new PDO("mysql:host=mysql.cc.puv.fi;dbname=e2000667_2022_Forum",
-        "e2000667", "QpHJ8BNhSuXX");
+            $DB_USERNAME, $DB_PASSWORD);
 
         return $conn;
     }
-
     catch(PDOException $exc) {
         var_dump($exc);
     }
-
 }
 
-
-function muodostaAiheHaku($subject_name)
-
-{
+//Haetaan aiheet
+function muodostaAiheHaku($owner_id) {
     return "SELECT * FROM subjects";
-
 }
+
+/*function muodostaEiAktiviisetLemmikitHaku($owner_id) {
+    return "SELECT * FROM pets WHERE owner_id=" . $owner_id . " AND NOT status='alive'";
+} */
+
+
+?>

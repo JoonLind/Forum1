@@ -1,20 +1,25 @@
 <?php
+session_start();
+
+// viittaus php-tiedostoon
+require("database.php");
 
 // Haetaan sposti + passu
-
 $email = $_POST["email"];
 $pw = $_POST["password"];
+// echo $email . ":" . $pw;
 
 // Tarkistetaan sposti + fiksataan
-$emailValid = filter_var($email, FILTER_SANITIZE_EMAIL);
+$emailSanitized = filter_var($email, FILTER_SANITIZE_EMAIL);
 $emailValid = filter_var($emailSanitized, FILTER_VALIDATE_EMAIL);
 If($emailValid === false)
 {
     // mahdollinen virheviesti
-    $_SESSION["email_error"] = "Sähköpostiosoite on väärässä muodossa.";
+    $_SESSION["email_error"] = "Tarkista sähköpostiosoite.";
     header('Location: index.php', true, 301);
     exit; 
 }
+
 
 
 
@@ -23,10 +28,8 @@ try {
     $conn = luoTietokantaYhteys();
 
     // haetaan  taulukosta käyttäjä 
-    $lause = "SELECT * FROM users WHERE email='" . $email . "'";
+    $lause = "SELECT * FROM users WHERE email='" . $emailValid . "'";
     $stmt = $conn->prepare($lause);
- 
-
     $stmt->execute();
     $data = $stmt->fetchAll(); 
 
@@ -36,20 +39,30 @@ try {
         //  verrataan salasana
         $pwTietokannasta = $data[0]["password"]; 
         $name = $data[0]["name"]; 
-        $id = $data[0]["id"]; 
+        $id = $data[0]["id"];
+       
 
         if(strcmp($pwTietokannasta, $pw) === 0) {
             // ohjataan aihesivulle
-            header('Location: aiheet.php?name='.$name."&id=".$id, true, 301);
+            $_SESSION["owner_id"] = $id; //=aihe
+            $_SESSION["owner_name"] = $name; //=kirjoittajan nimi
+
+            //$_SESSION["owner_id"] = $id;
+            //$_SESSION["owner_name"] = $name;
+
+            // Ohjataan eteenpäin
+            header('Location: aiheet.php', true, 301);
             exit;
         }
         else {
-            echo "virhe";
-            //header('Location: index.php', true, 301);
+            // virheilmoitus
+            $_SESSION["login_error"] = "Tarkista kirjautumistiedot.";
+            header('Location: index.php', true, 301);
             exit;    
         }
     }
     else {
+        $_SESSION["email_error"] = "Tiliä ei löydy.";
         header('Location: index.php', true, 301);
         exit; 
         //  jos kirjautumistiedot eivät täsmää, palataan kirjautumissivulle
